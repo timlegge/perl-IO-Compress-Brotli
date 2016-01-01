@@ -10,6 +10,9 @@ WriteMakefile(
 	LICENSE          => 'perl',
 	SIGN             => 1,
 	PREREQ_PM        => {},
+	BUILD_REQUIRES   => {
+		qw/File::Slurp 0/,
+	},
 	INC              => '-I.',
 	OBJECT           => 'Brotli.o bit_reader.o decode.o dictionary.o huffman.o state.o streams.o',
 	C                => [<dec/*c>],
