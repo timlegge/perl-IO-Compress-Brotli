@@ -1,5 +1,5 @@
-IO-Compress-Brotli version 0.001
-================================
+IO-Compress-Brotli version 0.001001
+===================================
 
 Brotli is a data compression format primarily used in web fonts and
 (more recently) HTTP compression.
@@ -22,8 +22,11 @@ To install this module type the following:
 
 DEPENDENCIES
 
-This module does not require non-core modules, but it does require a C
-compiler.
+This module requires these other modules and libraries:
+
+* File::Slurp (only used for testing)
+
+Additionally, it requires a C compiler.
 
 COPYRIGHT AND LICENCE
 
