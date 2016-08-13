@@ -1,5 +1,6 @@
 Brotli.bs
 Brotli.c
+Brotli.o
 MYMETA*
 Makefile
 Makefile.old
