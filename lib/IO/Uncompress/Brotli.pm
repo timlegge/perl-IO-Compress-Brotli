@@ -15,18 +15,18 @@ XSLoader::load('IO::Compress::Brotli', $VERSION);
 
 sub create {
 	my ($class) = @_;
-	my $state = BrotliCreateState();
+	my $state = BrotliDecoderCreateInstance();
 	bless \$state, $class
 }
 
 sub DESTROY {
 	my ($self) = @_;
-	BrotliDestroyState($$self)
+	BrotliDecoderDestroyInstance($$self)
 }
 
 sub decompress {
 	my ($self, $data) = @_;
-	BrotliDecompressStream($$self, $data)
+	BrotliDecoderDecompressStream($$self, $data)
 }
 
 # Untested, probably not working

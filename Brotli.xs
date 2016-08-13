@@ -27,32 +27,32 @@ SV* unbro(buffer)
     }
     Newx(decoded_buffer, decoded_size+1, uint8_t);
     decoded_buffer[decoded_size]=0;
-    if(!BrotliDecompressBuffer(encoded_size, encoded_buffer, &decoded_size, decoded_buffer)){
-        croak("Error in BrotliDecompressBuffer");
+    if(!BrotliDecoderDecompress(encoded_size, encoded_buffer, &decoded_size, decoded_buffer)){
+        croak("Error in BrotliDecoderDecompress");
     }
     RETVAL = newSV(0);
     sv_usepvn_flags(RETVAL, decoded_buffer, decoded_size, SV_HAS_TRAILING_NUL);
   OUTPUT:
     RETVAL
 
-SV* BrotliCreateState()
+SV* BrotliDecoderCreateInstance()
   CODE:
-    RETVAL = newSViv((IV)BrotliCreateState(NULL, NULL, NULL));
+    RETVAL = newSViv((IV)BrotliDecoderCreateInstance(NULL, NULL, NULL));
   OUTPUT:
     RETVAL
 
-void BrotliDestroyState(state)
+void BrotliDecoderDestroyInstance(state)
     SV* state
   CODE:
-    BrotliDestroyState((BrotliState*)SvIV(state));
+    BrotliDecoderDestroyInstance((BrotliDecoderState*)SvIV(state));
 
-SV* BrotliDecompressStream(state, in)
+SV* BrotliDecoderDecompressStream(state, in)
     SV* state
     SV* in
   PREINIT:
     uint8_t *next_in, *next_out;
     size_t available_in, available_out, total_out;
-    BrotliResult result;
+    BrotliDecoderResult result;
   CODE:
     next_in = (uint8_t*) SvPV(in, available_in);
     RETVAL = newSVpv("", 0);
@@ -60,9 +60,9 @@ SV* BrotliDecompressStream(state, in)
     while(result == BROTLI_RESULT_NEEDS_MORE_OUTPUT) {
         next_out = buffer;
         available_out=BUFFER_SIZE;
-        result = BrotliDecompressStream(&available_in, (const uint8_t**) &next_in, &available_out, &next_out, &total_out, (BrotliState*) SvIV(state));
+        result = BrotliDecoderDecompressStream((BrotliDecoderState*) SvIV(state), &available_in, (const uint8_t**) &next_in, &available_out, &next_out, &total_out);
         if(!result){
-             croak("Error in BrotliDecompressStream");
+             croak("Error in BrotliDecoderDecompressStream");
         }
         sv_catpvn(RETVAL, (const char*)buffer, BUFFER_SIZE-available_out);
     }
@@ -77,4 +77,4 @@ void BrotliSetCustomDictionary(state, dict)
     uint8_t *data;
   CODE:
     data = SvPV(dict, size);
-    BrotliSetCustomDictionary(size, data, (BrotliState*) SvIV(state));
+    BrotliDecoderSetCustomDictionary((BrotliDecoderState*) SvIV(state), size, data);
