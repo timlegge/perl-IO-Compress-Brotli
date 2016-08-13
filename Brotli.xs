@@ -6,6 +6,7 @@
 #include "ppport.h"
 
 #include <dec/decode.h>
+#include <common/dictionary.h>
 
 #define BUFFER_SIZE 1048576
 static uint8_t buffer[BUFFER_SIZE]; /* It's almost 2016, is anyone still using ithreads? */

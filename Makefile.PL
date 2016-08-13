@@ -13,10 +13,8 @@ WriteMakefile(
 	BUILD_REQUIRES   => {
 		qw/File::Slurp 0/,
 	},
-	INC              => '-I.',
-	OBJECT           => 'Brotli.o bit_reader.o decode.o dictionary.o huffman.o state.o streams.o',
-	C                => [<dec/*c>],
-	depend           => {'$(INST_DYNAMIC)' => '$(O_FILES)'},
+	INC              => '-Ibrotli',
+	MYEXTLIB         => 'brotli/libbrotli$(LIB_EXT)',
 	META_ADD         => {
 		dynamic_config => 0,
 		resources      => {
@@ -24,3 +22,10 @@ WriteMakefile(
 		},
 	}
 );
+
+sub MY::postamble {
+'
+$(MYEXTLIB): brotli/Makefile
+	cd brotli && CFLAGS=-fPIC $(MAKE) lib
+'
+}
