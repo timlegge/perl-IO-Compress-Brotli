@@ -32,7 +32,7 @@ sub decompress {
 # Untested, probably not working
 sub set_dictionary {
 	my ($self, $dict) = @_;
-	BrotliSetCustomDictionary($$self, $dict)
+	BrotliDecoderSetCustomDictionary($$self, $dict)
 }
 
 1;

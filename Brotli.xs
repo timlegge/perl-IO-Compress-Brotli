@@ -69,7 +69,7 @@ SV* BrotliDecoderDecompressStream(state, in)
   OUTPUT:
     RETVAL
 
-void BrotliSetCustomDictionary(state, dict)
+void BrotliDecoderSetCustomDictionary(state, dict)
     SV* state
     SV* dict
   PREINIT:
