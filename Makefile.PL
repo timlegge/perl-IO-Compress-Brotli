@@ -15,6 +15,7 @@ WriteMakefile(
 	},
 	INC              => '-Ibrotli',
 	MYEXTLIB         => 'brotli/libbrotli$(LIB_EXT)',
+	clean            => { FILES => 'brotli/libbrotli$(LIB_EXT)' },
 	META_ADD         => {
 		dynamic_config => 0,
 		resources      => {
