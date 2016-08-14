@@ -13,6 +13,7 @@ WriteMakefile(
 	PREREQ_PM        => {
 		'File::Slurp'  => '9999.19',
 		'Getopt::Long' => '2.45',
+		'Time:HiRes'   => '1.9728'
 	},
 	BUILD_REQUIRES   => {},
 	INC              => '-Ibrotli',
