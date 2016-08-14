@@ -85,17 +85,16 @@ for ( 1..$REPEAT ) {
             $bro->window( $WINDOW );
             while( read $ifh, (my $buf), $STREAM ) {
                 $encoded = $bro->compress($buf);
-                $total_size += bytes::length( $encoded );
+                $total_size += bytes::length( $buf );
                 print $ofh $encoded;
             }
             $encoded = $bro->finish();
-            $total_size += bytes::length( $encoded );
             print $ofh $encoded;
         }
         else {
             my $decoded = read_file( $ifh );
             my $encoded = bro( $decoded, $QUALITY, $WINDOW );
-            $total_size += bytes::length( $encoded );
+            $total_size += bytes::length( $decoded );
             write_file( $ofh, $encoded );
         }
     }
