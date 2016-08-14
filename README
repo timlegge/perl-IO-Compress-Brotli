@@ -4,10 +4,9 @@ IO-Compress-Brotli version 0.001001
 Brotli is a data compression format primarily used in web fonts and
 (more recently) HTTP compression.
 
-This distribution wraps the official Brotli source code[0], offering a
-module for decompressing Brotli buffers and streams,
-IO::Uncompress::Brotli. Compression will be supported in a future
-release.
+This distribution wraps the official Brotli source code[0], offering
+modules for compressing Brotli buffers and streams, IO::Compress::Brotli,
+and decompressing, IO::Uncompress::Brotli.
 
 [0]: https://github.com/google/brotli
 
