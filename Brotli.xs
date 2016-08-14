@@ -9,7 +9,6 @@
 #include <common/dictionary.h>
 
 #define BUFFER_SIZE 1048576
-static uint8_t buffer[BUFFER_SIZE]; /* It's almost 2016, is anyone still using ithreads? */
 
 MODULE = IO::Compress::Brotli		PACKAGE = IO::Uncompress::Brotli
 PROTOTYPES: ENABLE
@@ -50,11 +49,12 @@ SV* BrotliDecoderDecompressStream(state, in)
     SV* state
     SV* in
   PREINIT:
-    uint8_t *next_in, *next_out;
+    uint8_t *next_in, *next_out, *buffer;
     size_t available_in, available_out;
     BrotliDecoderResult result;
   CODE:
     next_in = (uint8_t*) SvPV(in, available_in);
+    Newx(buffer, BUFFER_SIZE, uint8_t);
     RETVAL = newSVpv("", 0);
     result = BROTLI_RESULT_NEEDS_MORE_OUTPUT;
     while(result == BROTLI_RESULT_NEEDS_MORE_OUTPUT) {
@@ -67,10 +67,12 @@ SV* BrotliDecoderDecompressStream(state, in)
                                                 &next_out,
                                                 NULL );
         if(!result){
-             croak("Error in BrotliDecoderDecompressStream");
+            Safefree(buffer);
+            croak("Error in BrotliDecoderDecompressStream");
         }
         sv_catpvn(RETVAL, (const char*)buffer, BUFFER_SIZE-available_out);
     }
+    Safefree(buffer);
   OUTPUT:
     RETVAL
 
