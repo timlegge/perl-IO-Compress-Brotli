@@ -51,7 +51,7 @@ SV* BrotliDecoderDecompressStream(state, in)
     SV* in
   PREINIT:
     uint8_t *next_in, *next_out;
-    size_t available_in, available_out, total_out;
+    size_t available_in, available_out;
     BrotliDecoderResult result;
   CODE:
     next_in = (uint8_t*) SvPV(in, available_in);
@@ -65,7 +65,7 @@ SV* BrotliDecoderDecompressStream(state, in)
                                                 (const uint8_t**) &next_in,
                                                 &available_out,
                                                 &next_out,
-                                                &total_out );
+                                                NULL );
         if(!result){
              croak("Error in BrotliDecoderDecompressStream");
         }
