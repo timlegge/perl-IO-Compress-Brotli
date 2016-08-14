@@ -3,6 +3,7 @@ Changes
 MANIFEST			This list of files
 Makefile.PL
 README
+bin/bro-perl
 brotli/BUILD
 brotli/CMakeLists.txt
 brotli/CONTRIBUTING.md
@@ -173,5 +174,6 @@ brotli/tools/version.h
 lib/IO/Compress/Brotli.pm
 lib/IO/Uncompress/Brotli.pm
 ppport.h
-t/IO-Compress-Brotli.t
-t/IO-Uncompress-Brotli.t
+t/00-load.t
+t/01-uncompress.t
+t/02-roundtrip.t
