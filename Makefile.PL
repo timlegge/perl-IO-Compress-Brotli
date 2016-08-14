@@ -9,10 +9,12 @@ WriteMakefile(
 	MIN_PERL_VERSION => '5.14.0',
 	LICENSE          => 'perl',
 	SIGN             => 1,
-	PREREQ_PM        => {},
-	BUILD_REQUIRES   => {
-		qw/File::Slurp 0/,
+	EXE_FILES        => [ 'bin/bro-perl' ],
+	PREREQ_PM        => {
+		'File::Slurp'  => '9999.19',
+		'Getopt::Long' => '2.45',
 	},
+	BUILD_REQUIRES   => {},
 	INC              => '-Ibrotli',
 	MYEXTLIB         => 'brotli/libbrotli$(LIB_EXT)',
 	clean            => { FILES => 'brotli/libbrotli$(LIB_EXT)' },

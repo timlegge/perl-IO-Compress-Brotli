@@ -1,0 +1,75 @@
+#!perl
+#
+
+use warnings;
+use strict;
+use 5.014;
+
+use File::Slurp;
+use Getopt::Long;
+
+use IO::Compress::Brotli;
+use IO::Uncompress::Brotli;
+
+GetOptions(
+    'c|custom-dictionary=s' => \(my $DICTIONARY),
+    'd|decompress'          => \(my $DECOMPRESS),
+    'h|help'                => \(my $HELP),
+    'i|input=s'             => \(my $INPUT),
+    'o|output=s'            => \(my $OUTPUT),
+    'q|quality=i'           => \(my $QUALITY = 11),
+    'r|repeat=i'            => \(my $REPEAT),
+    's|stream=i'            => \(my $STREAM),
+    'v|verbose'             => \(my $VERBOSE),
+    'w|window=i'            => \(my $WINDOW = 22),
+);
+
+if( $HELP ) {
+    say "Usage: $0 [--force] [--quality n] [--decompress] [--input filename] [--output filename]".
+        " [--repeat iters] [--verbose] [--window n] [--custom-dictionary filename] [--stream size]";
+    exit 1;
+}
+
+my ($ifh, $ofh) = (\*STDIN, \*STDOUT);
+
+if( $INPUT ) {
+    open $ifh, "<", $INPUT
+        or die "Cannot open input file $INPUT.\n";
+}
+binmode $ifh;
+
+if( $OUTPUT ) {
+    open $ofh, ">", $OUTPUT
+        or die "Cannot open output file $OUTPUT.\n";
+}
+binmode $ofh;
+
+if( $DECOMPRESS ) {
+    if( $STREAM ) {
+        my $brotli = IO::Uncompress::Brotli->create();
+        while( read $ifh, (my $buf), $STREAM ) {
+            print $ofh $brotli->decompress($buf);
+        }
+    }
+    else {
+        my $encoded = read_file( $ifh );
+        my $decoded = unbro( $encoded );
+        write_file( $ofh, $decoded );
+    }
+}
+else {
+    if( $STREAM ) {
+        my $brotli = IO::Compress::Brotli->create();
+        $brotli->quality( $QUALITY );
+        $brotli->window( $WINDOW );
+        while( read $ifh, (my $buf), $STREAM ) {
+            print $ofh $brotli->compress($buf);
+        }
+    }
+    else {
+        my $decoded = read_file( $ifh );
+        my $encoded = bro( $decoded, $QUALITY, $WINDOW );
+        write_file( $ofh, $encoded );
+    }
+}
+

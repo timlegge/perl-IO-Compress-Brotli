@@ -24,7 +24,8 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-* File::Slurp (only used for testing)
+* File::Slurp
+* Getopt::Long
 
 Additionally, it requires a C compiler.
 

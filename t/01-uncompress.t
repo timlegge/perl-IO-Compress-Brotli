@@ -2,9 +2,10 @@
 use v5.14;
 use warnings;
 
-use Test::More tests => 81;
+use Test::More tests => 80;
 use File::Slurp;
-BEGIN{ use_ok('IO::Uncompress::Brotli'); }
+
+use IO::Uncompress::Brotli;
 
 my $todo_re = qr/empty\.compressed\.(?:1[7-9]|2)|x\.compressed\.0[12]/;
 
