@@ -60,7 +60,12 @@ SV* BrotliDecoderDecompressStream(state, in)
     while(result == BROTLI_RESULT_NEEDS_MORE_OUTPUT) {
         next_out = buffer;
         available_out=BUFFER_SIZE;
-        result = BrotliDecoderDecompressStream((BrotliDecoderState*) SvIV(state), &available_in, (const uint8_t**) &next_in, &available_out, &next_out, &total_out);
+        result = BrotliDecoderDecompressStream( (BrotliDecoderState*) SvIV(state),
+                                                &available_in,
+                                                (const uint8_t**) &next_in,
+                                                &available_out,
+                                                &next_out,
+                                                &total_out );
         if(!result){
              croak("Error in BrotliDecoderDecompressStream");
         }
