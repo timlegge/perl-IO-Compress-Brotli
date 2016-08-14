@@ -1,3 +1,4 @@
+*.bak
 Brotli.bs
 Brotli.c
 Brotli.o
