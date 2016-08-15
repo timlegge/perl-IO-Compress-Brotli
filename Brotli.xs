@@ -118,6 +118,7 @@ SV* bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
                                     &encoded_size,
                                     encoded_buffer );
     if(!result){
+        Safefree(buffer);
         croak("Error in BrotliEncoderCompress");
     }
     encoded_buffer[encoded_size]=0;
