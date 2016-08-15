@@ -9,6 +9,7 @@ brotli/CMakeLists.txt
 brotli/CONTRIBUTING.md
 brotli/LICENSE
 brotli/MANIFEST.in
+brotli/Makefile
 brotli/README.md
 brotli/WORKSPACE
 brotli/appveyor.yml
