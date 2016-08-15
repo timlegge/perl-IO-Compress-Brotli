@@ -102,7 +102,10 @@ SV* bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
     BROTLI_BOOL result;
   CODE:
     if( quality < BROTLI_MIN_QUALITY || quality > BROTLI_MAX_QUALITY ) {
-		croak("Invalid quality value");
+        croak("Invalid quality value");
+    }
+    if( lgwin < kBrotliMinWindowBits || lgwin > kBrotliMaxWindowBits ) {
+        croak("Invalid window value");
     }
     decoded_buffer = (uint8_t*) SvPV(buffer, decoded_size);
     encoded_size = BrotliEncoderMaxCompressedSize(decoded_size);
@@ -137,6 +140,9 @@ SV* BrotliEncoderSetWindow(state, window)
     SV* state
     U32 window
   CODE:
+    if( window < kBrotliMinWindowBits || window > kBrotliMaxWindowBits ) {
+        croak("Invalid window value");
+    }
     if( BrotliEncoderSetParameter((BrotliEncoderState*) SvIV(state), BROTLI_PARAM_LGWIN, window) )
         RETVAL = newSVuv(1);
     else
@@ -149,7 +155,7 @@ SV* BrotliEncoderSetQuality(state, quality)
     U32 quality
   CODE:
     if( quality < BROTLI_MIN_QUALITY || quality > BROTLI_MAX_QUALITY ) {
-		croak("Invalid quality value");
+        croak("Invalid quality value");
     }
     if( BrotliEncoderSetParameter((BrotliEncoderState*) SvIV(state), BROTLI_PARAM_QUALITY, quality) )
         RETVAL = newSVuv(1);
