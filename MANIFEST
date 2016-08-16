@@ -178,3 +178,4 @@ ppport.h
 t/00-load.t
 t/01-uncompress.t
 t/02-roundtrip.t
+typemap

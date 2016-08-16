@@ -11,10 +11,20 @@
 
 #define BUFFER_SIZE 1048576
 
+typedef struct brotli_decoder {
+    BrotliDecoderState *decoder;
+}* IO__Uncompress__Brotli;
+
+typedef struct brotli_encoder {
+    BrotliEncoderState *encoder;
+}* IO__Compress__Brotli;
+
+
 MODULE = IO::Compress::Brotli		PACKAGE = IO::Uncompress::Brotli
 PROTOTYPES: ENABLE
 
-SV* unbro(buffer)
+SV*
+unbro(buffer)
     SV* buffer
   PREINIT:
     size_t decoded_size;
@@ -35,19 +45,25 @@ SV* unbro(buffer)
   OUTPUT:
     RETVAL
 
-SV* BrotliDecoderCreateInstance()
+IO::Uncompress::Brotli
+create(class)
+    SV* class
   CODE:
-    RETVAL = newSViv((IV)BrotliDecoderCreateInstance(NULL, NULL, NULL));
+    Newx(RETVAL, 1, struct brotli_decoder);
+    RETVAL->decoder = BrotliDecoderCreateInstance(NULL, NULL, NULL);
   OUTPUT:
     RETVAL
 
-void BrotliDecoderDestroyInstance(state)
-    SV* state
+void
+DESTROY(self)
+    IO::Uncompress::Brotli self
   CODE:
-    BrotliDecoderDestroyInstance((BrotliDecoderState*)SvIV(state));
+    BrotliDecoderDestroyInstance(self->decoder);
+    Safefree(self);
 
-SV* BrotliDecoderDecompressStream(state, in)
-    SV* state
+SV*
+decompress(self, in)
+    IO::Uncompress::Brotli self
     SV* in
   PREINIT:
     uint8_t *next_in, *next_out, *buffer;
@@ -61,7 +77,7 @@ SV* BrotliDecoderDecompressStream(state, in)
     while(result == BROTLI_RESULT_NEEDS_MORE_OUTPUT) {
         next_out = buffer;
         available_out=BUFFER_SIZE;
-        result = BrotliDecoderDecompressStream( (BrotliDecoderState*) SvIV(state),
+        result = BrotliDecoderDecompressStream( self->decoder,
                                                 &available_in,
                                                 (const uint8_t**) &next_in,
                                                 &available_out,
@@ -77,21 +93,23 @@ SV* BrotliDecoderDecompressStream(state, in)
   OUTPUT:
     RETVAL
 
-void BrotliDecoderSetCustomDictionary(state, dict)
-    SV* state
+void
+set_dictionary(self, dict)
+    IO::Uncompress::Brotli self
     SV* dict
   PREINIT:
     size_t size;
     uint8_t *data;
   CODE:
     data = SvPV(dict, size);
-    BrotliDecoderSetCustomDictionary((BrotliDecoderState*) SvIV(state), size, data);
+    BrotliDecoderSetCustomDictionary(self->decoder, size, data);
 
 
 MODULE = IO::Compress::Brotli		PACKAGE = IO::Compress::Brotli
 PROTOTYPES: ENABLE
 
-SV* bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
+SV*
+bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
     SV* buffer
     U32 quality
     U32 lgwin
@@ -130,53 +148,60 @@ SV* bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
   OUTPUT:
     RETVAL
 
-SV* BrotliEncoderCreateInstance()
+IO::Compress::Brotli
+create(class)
+    SV* class
   CODE:
-    RETVAL = newSViv((IV)BrotliEncoderCreateInstance(NULL, NULL, NULL));
+    Newx(RETVAL, 1, struct brotli_encoder);
+    RETVAL->encoder = BrotliEncoderCreateInstance(NULL, NULL, NULL);
   OUTPUT:
     RETVAL
 
-SV* BrotliEncoderSetWindow(state, window)
-    SV* state
+SV*
+window(self, window)
+    IO::Compress::Brotli self
     U32 window
   CODE:
     if( window < kBrotliMinWindowBits || window > kBrotliMaxWindowBits ) {
         croak("Invalid window value");
     }
-    if( BrotliEncoderSetParameter((BrotliEncoderState*) SvIV(state), BROTLI_PARAM_LGWIN, window) )
+    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_LGWIN, window) )
         RETVAL = newSVuv(1);
     else
         RETVAL = newSVuv(0);
   OUTPUT:
     RETVAL
 
-SV* BrotliEncoderSetQuality(state, quality)
-    SV* state
+SV*
+quality(self, quality)
+    IO::Compress::Brotli self
     U32 quality
   CODE:
     if( quality < BROTLI_MIN_QUALITY || quality > BROTLI_MAX_QUALITY ) {
         croak("Invalid quality value");
     }
-    if( BrotliEncoderSetParameter((BrotliEncoderState*) SvIV(state), BROTLI_PARAM_QUALITY, quality) )
+    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_QUALITY, quality) )
         RETVAL = newSVuv(1);
     else
         RETVAL = newSVuv(0);
   OUTPUT:
     RETVAL
 
-SV* BrotliEncoderSetMode(state, mode)
-    SV* state
+SV*
+_mode(self, mode)
+    IO::Compress::Brotli self
     U32 mode
   CODE:
-    if( BrotliEncoderSetParameter((BrotliEncoderState*) SvIV(state), BROTLI_PARAM_MODE, mode) )
+    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_MODE, mode) )
         RETVAL = newSVuv(1);
     else
         RETVAL = newSVuv(0);
   OUTPUT:
     RETVAL
 
-SV* BrotliEncoderCompressStream(state, in, op)
-    SV* state
+SV*
+_compress(self, in, op)
+    IO::Compress::Brotli self
     SV* in
     U8 op
   PREINIT:
@@ -190,7 +215,7 @@ SV* BrotliEncoderCompressStream(state, in, op)
     while(1) {
         next_out = buffer;
         available_out = BUFFER_SIZE;
-        result = BrotliEncoderCompressStream( (BrotliEncoderState*) SvIV(state),
+        result = BrotliEncoderCompressStream( self->encoder,
                                               (BrotliEncoderOperation) op,
                                               &available_in,
                                               (const uint8_t**) &next_in,
@@ -207,25 +232,28 @@ SV* BrotliEncoderCompressStream(state, in, op)
         }
 
         if(
-            BrotliEncoderIsFinished((BrotliEncoderState*) SvIV(state)) ||
-            (!available_in && !BrotliEncoderHasMoreOutput((BrotliEncoderState*) SvIV(state)))
+            BrotliEncoderIsFinished(self->encoder) ||
+            (!available_in && !BrotliEncoderHasMoreOutput(self->encoder))
         ) break;
     }
     Safefree(buffer);
   OUTPUT:
     RETVAL
 
-void BrotliEncoderDestroyInstance(state)
-    SV* state
+void
+DESTROY(self)
+    IO::Compress::Brotli self
   CODE:
-    BrotliEncoderDestroyInstance((BrotliEncoderState*)SvIV(state));
+    BrotliEncoderDestroyInstance(self->encoder);
 
-void BrotliEncoderSetCustomDictionary(state, dict)
-    SV* state
+void
+set_dictionary(self, dict)
+    IO::Compress::Brotli self
     SV* dict
   PREINIT:
     size_t size;
     uint8_t *data;
   CODE:
     data = SvPV(dict, size);
-    BrotliEncoderSetCustomDictionary((BrotliEncoderState*) SvIV(state), size, data);
+    BrotliEncoderSetCustomDictionary(self->encoder, size, data);
+

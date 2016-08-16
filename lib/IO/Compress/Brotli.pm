@@ -13,27 +13,6 @@ our @EXPORT_OK = @EXPORT;
 
 our $VERSION = '0.001001';
 
-sub create {
-	my ($class) = @_;
-	my $state = BrotliEncoderCreateInstance();
-	bless \$state, $class
-}
-
-sub DESTROY {
-	my ($self) = @_;
-	BrotliEncoderDestroyInstance($$self)
-}
-
-sub quality {
-    my ($self, $quality) = @_;
-    BrotliEncoderSetQuality($$self, $quality)
-}
-
-sub window {
-    my ($self, $window) = @_;
-    BrotliEncoderSetWindow($$self, $window)
-}
-
 my %BROTLI_ENCODER_MODE = ( generic => 0, text => 1, font => 2 );
 sub mode {
     my ($self, $mode) = @_;
@@ -41,7 +20,7 @@ sub mode {
     die "Invalid encoder mode"
         unless $BROTLI_ENCODER_MODE{$mode};
 
-    BrotliEncoderSetMode($$self, $mode)
+    _mode($$self, $mode)
 }
 
 use constant {
@@ -51,23 +30,17 @@ use constant {
 };
 sub compress {
 	my ($self, $data) = @_;
-	BrotliEncoderCompressStream($$self, $data, BROTLI_OPERATION_PROCESS )
+	$self->_compress($data, BROTLI_OPERATION_PROCESS )
 }
 
 sub flush {
 	my ($self) = @_;
-	BrotliEncoderCompressStream($$self, '', BROTLI_OPERATION_FLUSH )
+	$self->_compress('', BROTLI_OPERATION_FLUSH )
 }
 
 sub finish {
 	my ($self) = @_;
-	BrotliEncoderCompressStream($$self, '', BROTLI_OPERATION_FINISH )
-}
-
-# Untested, probably not working
-sub set_dictionary {
-	my ($self, $dict) = @_;
-	BrotliEncoderSetCustomDictionary($$self, $dict)
+	$self->_compress('', BROTLI_OPERATION_FINISH )
 }
 
 1;

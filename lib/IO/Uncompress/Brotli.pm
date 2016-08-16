@@ -13,28 +13,6 @@ our $VERSION = '0.001001';
 require XSLoader;
 XSLoader::load('IO::Compress::Brotli', $VERSION);
 
-sub create {
-	my ($class) = @_;
-	my $state = BrotliDecoderCreateInstance();
-	bless \$state, $class
-}
-
-sub DESTROY {
-	my ($self) = @_;
-	BrotliDecoderDestroyInstance($$self)
-}
-
-sub decompress {
-	my ($self, $data) = @_;
-	BrotliDecoderDecompressStream($$self, $data)
-}
-
-# Untested, probably not working
-sub set_dictionary {
-	my ($self, $dict) = @_;
-	BrotliDecoderSetCustomDictionary($$self, $dict)
-}
-
 1;
 __END__
 
