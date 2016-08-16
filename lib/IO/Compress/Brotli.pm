@@ -50,7 +50,7 @@ __END__
 
 =head1 NAME
 
-IO::Compress::Brotli - [Not yet implemented] Write Brotli buffers/streams
+IO::Compress::Brotli - Write Brotli buffers/streams
 
 =head1 SYNOPSIS
 
