@@ -200,6 +200,85 @@ _mode(self, mode)
     RETVAL
 
 SV*
+compress(self, in)
+    IO::Compress::Brotli self
+    SV* in
+  CODE:
+    ENTER;
+    SAVETMPS;
+ 
+    PUSHMARK(SP);
+    XPUSHs(ST(0));
+    XPUSHs(in);
+    XPUSHs(newSVuv(BROTLI_OPERATION_PROCESS));
+    PUTBACK;
+
+    call_method("_compress", G_SCALAR);
+
+    SPAGAIN;
+
+    RETVAL = POPs;
+    SvREFCNT_inc(RETVAL);
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+  OUTPUT:
+    RETVAL
+
+SV*
+flush(self)
+    IO::Compress::Brotli self
+  CODE:
+    ENTER;
+    SAVETMPS;
+ 
+    PUSHMARK(SP);
+    XPUSHs(ST(0));
+    XPUSHs(newSVpv("", 0));
+    XPUSHs(newSVuv(BROTLI_OPERATION_FLUSH));
+    PUTBACK;
+
+    call_method("_compress", G_SCALAR);
+
+    SPAGAIN;
+
+    RETVAL = POPs;
+    SvREFCNT_inc(RETVAL);
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+  OUTPUT:
+    RETVAL
+
+SV*
+finish(self)
+    IO::Compress::Brotli self
+  CODE:
+    ENTER;
+    SAVETMPS;
+ 
+    PUSHMARK(SP);
+    XPUSHs(ST(0));
+    XPUSHs(newSVpv("", 0));
+    XPUSHs(newSVuv(BROTLI_OPERATION_FINISH));
+    PUTBACK;
+
+    call_method("_compress", G_SCALAR);
+
+    SPAGAIN;
+
+    RETVAL = POPs;
+    SvREFCNT_inc(RETVAL);
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+  OUTPUT:
+    RETVAL
+
+SV*
 _compress(self, in, op)
     IO::Compress::Brotli self
     SV* in

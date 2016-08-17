@@ -23,25 +23,6 @@ sub mode {
     _mode($$self, $mode)
 }
 
-use constant {
-    BROTLI_OPERATION_PROCESS => 0,
-    BROTLI_OPERATION_FLUSH   => 1,
-    BROTLI_OPERATION_FINISH  => 2
-};
-sub compress {
-	my ($self, $data) = @_;
-	$self->_compress($data, BROTLI_OPERATION_PROCESS )
-}
-
-sub flush {
-	my ($self) = @_;
-	$self->_compress('', BROTLI_OPERATION_FLUSH )
-}
-
-sub finish {
-	my ($self) = @_;
-	$self->_compress('', BROTLI_OPERATION_FINISH )
-}
 
 1;
 __END__
