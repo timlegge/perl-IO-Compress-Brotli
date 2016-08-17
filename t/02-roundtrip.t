@@ -22,7 +22,7 @@ for my $test (<brotli/tests/testdata/*.compressed>) {
     for my $quality (1,5,9,11) {
 		my $enc = IO::Compress::Brotli->create;
 		$enc->quality($quality);
-        my $encoded = $enc->compress($source, 1);
+        my $encoded = $enc->compress($source);
         $encoded .= $enc->finish();
 
 		my $dec = IO::Uncompress::Brotli->create;
