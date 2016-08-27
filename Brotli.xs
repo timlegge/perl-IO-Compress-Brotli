@@ -200,96 +200,42 @@ _mode(self, mode)
     RETVAL
 
 SV*
-compress(self, in)
+_compress(self, in = &PL_sv_undef)
     IO::Compress::Brotli self
     SV* in
-  CODE:
-    ENTER;
-    SAVETMPS;
-
-    PUSHMARK(SP);
-    XPUSHs(ST(0));
-    XPUSHs(in);
-    XPUSHs(newSVuv(BROTLI_OPERATION_PROCESS));
-    PUTBACK;
-
-    call_method("_compress", G_SCALAR);
-
-    SPAGAIN;
-
-    RETVAL = POPs;
-    SvREFCNT_inc(RETVAL);
-
-    PUTBACK;
-    FREETMPS;
-    LEAVE;
-  OUTPUT:
-    RETVAL
-
-SV*
-flush(self)
-    IO::Compress::Brotli self
-  CODE:
-    ENTER;
-    SAVETMPS;
-
-    PUSHMARK(SP);
-    XPUSHs(ST(0));
-    XPUSHs(newSVpv("", 0));
-    XPUSHs(newSVuv(BROTLI_OPERATION_FLUSH));
-    PUTBACK;
-
-    call_method("_compress", G_SCALAR);
-
-    SPAGAIN;
-
-    RETVAL = POPs;
-    SvREFCNT_inc(RETVAL);
-
-    PUTBACK;
-    FREETMPS;
-    LEAVE;
-  OUTPUT:
-    RETVAL
-
-SV*
-finish(self)
-    IO::Compress::Brotli self
-  CODE:
-    ENTER;
-    SAVETMPS;
-
-    PUSHMARK(SP);
-    XPUSHs(ST(0));
-    XPUSHs(newSVpv("", 0));
-    XPUSHs(newSVuv(BROTLI_OPERATION_FINISH));
-    PUTBACK;
-
-    call_method("_compress", G_SCALAR);
-
-    SPAGAIN;
-
-    RETVAL = POPs;
-    SvREFCNT_inc(RETVAL);
-
-    PUTBACK;
-    FREETMPS;
-    LEAVE;
-  OUTPUT:
-    RETVAL
-
-SV*
-_compress(self, in, op)
-    IO::Compress::Brotli self
-    SV* in
-    U8 op
+  ALIAS:
+    compress = 1
+    flush = 2
+    finish = 3
   PREINIT:
     uint8_t *next_in, *next_out, *buffer;
     size_t available_in, available_out;
     BROTLI_BOOL result;
+    BrotliEncoderOperation op;
   CODE:
-    next_in = (uint8_t*) SvPV(in, available_in);
+    switch(ix) {
+    case 0:
+        croak("_compress may not be called directly");
+        break;
+    case 1:
+        op = BROTLI_OPERATION_PROCESS;
+        break;
+    case 2:
+        op = BROTLI_OPERATION_FLUSH;
+        break;
+    case 3:
+        op = BROTLI_OPERATION_FINISH;
+        break;
+    default:
+        croak("Impossible ix in _compress");
+        break;
+    }
+
     Newx(buffer, BUFFER_SIZE, uint8_t);
+    if(in == &PL_sv_undef)
+        next_in = (uint8_t*) buffer, available_in = 0;
+    else
+        next_in = (uint8_t*) SvPV(in, available_in);
     RETVAL = newSVpv("", 0);
     while(1) {
         next_out = buffer;
