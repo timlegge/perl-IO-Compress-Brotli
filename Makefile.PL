@@ -11,9 +11,9 @@ WriteMakefile(
 	SIGN             => 1,
 	EXE_FILES        => [ 'bin/bro-perl' ],
 	PREREQ_PM        => {
-		'File::Slurp'  => '9999.19',
-		'Getopt::Long' => '2.45',
-		'Time:HiRes'   => '1.9728'
+		'File::Slurp'  => '0',
+		'Getopt::Long' => '0',
+		'Time:HiRes'   => '0',
 	},
 	BUILD_REQUIRES   => {},
 	INC              => '-Ibrotli',
