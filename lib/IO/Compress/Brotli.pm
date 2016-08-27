@@ -132,6 +132,21 @@ Brotli source code: L<https://github.com/google/brotli/>
 
 Marius Gavrilescu, E<lt>marius@ieval.roE<gt>
 
+The encoder bindings, modernisation of the decoder bindings and a
+clean up of the overall project were contributed by:
+
+=over
+
+=item Quim Rovira, E<lt>quim@rovira.catE<gt>
+
+=item Ævar Arnfjörð Bjarmason, E<lt>avarab@gmail.comE<gt>
+
+=item Marcell Szathmári
+
+=item Mattia Barbon, E<lt>mattia@barbon.orgE<gt>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2015 by Marius Gavrilescu
