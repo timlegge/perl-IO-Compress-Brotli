@@ -206,7 +206,7 @@ compress(self, in)
   CODE:
     ENTER;
     SAVETMPS;
- 
+
     PUSHMARK(SP);
     XPUSHs(ST(0));
     XPUSHs(in);
@@ -232,7 +232,7 @@ flush(self)
   CODE:
     ENTER;
     SAVETMPS;
- 
+
     PUSHMARK(SP);
     XPUSHs(ST(0));
     XPUSHs(newSVpv("", 0));
@@ -258,7 +258,7 @@ finish(self)
   CODE:
     ENTER;
     SAVETMPS;
- 
+
     PUSHMARK(SP);
     XPUSHs(ST(0));
     XPUSHs(newSVpv("", 0));
@@ -335,4 +335,3 @@ set_dictionary(self, dict)
   CODE:
     data = SvPV(dict, size);
     BrotliEncoderSetCustomDictionary(self->encoder, size, data);
-
