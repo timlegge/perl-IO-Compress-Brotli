@@ -1,11 +1,10 @@
 #!perl
-#
 
 use warnings;
 use strict;
 use 5.014;
 
-use bytes;
+use bytes ();
 
 use File::Slurp;
 use Getopt::Long;
@@ -54,7 +53,7 @@ for ( 1..$REPEAT ) {
 
     my $ofh;
     if( $OUTPUT ) {
-        die "Output file exists"
+        die "Output file exists\n"
             if( -e $OUTPUT && $REPEAT == 1 && !$FORCE );
         open $ofh, ">", $OUTPUT
             or die "Cannot open output file $OUTPUT.\n";
