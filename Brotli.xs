@@ -270,6 +270,7 @@ DESTROY(self)
     IO::Compress::Brotli self
   CODE:
     BrotliEncoderDestroyInstance(self->encoder);
+    Safefree(self);
 
 void
 set_dictionary(self, dict)
