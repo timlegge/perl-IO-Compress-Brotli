@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
 	NAME             => 'IO::Compress::Brotli',
 	VERSION_FROM     => 'lib/IO/Compress/Brotli.pm',
-	ABSTRACT         => 'Read Brotli buffers/streams',
+	ABSTRACT         => 'Read/write Brotli buffers/streams',
 	AUTHOR           => 'Marius Gavrilescu <marius@ieval.ro>',
 	MIN_PERL_VERSION => '5.14.0',
 	LICENSE          => 'perl',
