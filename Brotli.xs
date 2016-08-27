@@ -157,47 +157,42 @@ create(class)
   OUTPUT:
     RETVAL
 
-SV*
-window(self, window)
+bool BrotliEncoderSetParameter(self, value)
     IO::Compress::Brotli self
-    U32 window
-  CODE:
-    if( window < kBrotliMinWindowBits || window > kBrotliMaxWindowBits ) {
-        croak("Invalid window value");
+    U32 value
+  ALIAS:
+    window  = 1
+    quality = 2
+    _mode   = 3
+  PREINIT:
+    BrotliEncoderParameter param;
+  INIT:
+    switch(ix){
+    case 0:
+        croak("BrotliEncoderSetParameter may not be called directly");
+        break;
+    case 1:
+        if( value < kBrotliMinWindowBits || value > kBrotliMaxWindowBits ) {
+            croak("Invalid window value");
+        }
+        param = BROTLI_PARAM_LGWIN;
+        break;
+    case 2:
+        if( value < BROTLI_MIN_QUALITY || value > BROTLI_MAX_QUALITY ) {
+            croak("Invalid quality value");
+        }
+        param = BROTLI_PARAM_QUALITY;
+        break;
+    case 3:
+        /* Validation done on Perl side */
+        param = BROTLI_PARAM_MODE;
+        break;
+    default:
+        croak("Impossible ix in BrotliEncoderSetParameter");
+        break;
     }
-    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_LGWIN, window) )
-        RETVAL = newSVuv(1);
-    else
-        RETVAL = newSVuv(0);
-  OUTPUT:
-    RETVAL
-
-SV*
-quality(self, quality)
-    IO::Compress::Brotli self
-    U32 quality
-  CODE:
-    if( quality < BROTLI_MIN_QUALITY || quality > BROTLI_MAX_QUALITY ) {
-        croak("Invalid quality value");
-    }
-    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_QUALITY, quality) )
-        RETVAL = newSVuv(1);
-    else
-        RETVAL = newSVuv(0);
-  OUTPUT:
-    RETVAL
-
-SV*
-_mode(self, mode)
-    IO::Compress::Brotli self
-    U32 mode
-  CODE:
-    if( BrotliEncoderSetParameter(self->encoder, BROTLI_PARAM_MODE, mode) )
-        RETVAL = newSVuv(1);
-    else
-        RETVAL = newSVuv(0);
-  OUTPUT:
-    RETVAL
+  C_ARGS:
+    self->encoder, param, value
 
 SV*
 _compress(self, in = &PL_sv_undef)
