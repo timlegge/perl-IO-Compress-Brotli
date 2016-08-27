@@ -3,10 +3,9 @@ package IO::Compress::Brotli;
 use 5.014000;
 use strict;
 use warnings;
+use parent qw/Exporter/;
 
 use IO::Uncompress::Brotli;
-
-use parent qw/Exporter/;
 
 our @EXPORT = qw/bro/;
 our @EXPORT_OK = @EXPORT;
