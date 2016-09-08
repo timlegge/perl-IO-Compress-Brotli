@@ -1,5 +1,8 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.002001 2016-09-08T23:09+01:00
+ - Use gmake (if available) to compile the brotli library
+
 0.002 2016-08-28T00:33+01:00
  - Thanks to Quim Rovira, Ævar Arnfjörð Bjarmason, Marcell Szathmári
    and Mattia Barbon for all changes in this version
