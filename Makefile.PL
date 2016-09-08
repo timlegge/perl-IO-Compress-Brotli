@@ -30,6 +30,6 @@ WriteMakefile(
 sub MY::postamble {
 '
 $(MYEXTLIB): brotli/Makefile
-	cd brotli && CFLAGS=-fPIC $(MAKE) lib
+	cd brotli && CFLAGS=-fPIC `which gmake || echo $(MAKE)` lib
 '
 }
