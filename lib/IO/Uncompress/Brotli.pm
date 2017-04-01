@@ -106,6 +106,8 @@ clean up of the overall project were contributed by:
 
 =item Mattia Barbon, E<lt>mattia@barbon.orgE<gt>
 
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2015-2016 by Marius Gavrilescu
