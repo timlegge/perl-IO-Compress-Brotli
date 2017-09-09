@@ -14,7 +14,7 @@ for my $test (<brotli/tests/testdata/*.compressed>) {
 
 	for my $quality (9,11) {
 		my $encoded = bro($source, $quality);
-		my $decoded = unbro($encoded);
+		my $decoded = unbro($encoded, 1_000_000);
 
 		is $decoded, $source, "$test - quality $quality";
 	}
