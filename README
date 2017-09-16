@@ -1,5 +1,5 @@
-IO-Compress-Brotli version 0.002_002
-====================================
+IO-Compress-Brotli version 0.003
+================================
 
 Brotli is a data compression format primarily used in web fonts and
 (more recently) HTTP compression.
