@@ -88,17 +88,6 @@ decompress(self, in)
   OUTPUT:
     RETVAL
 
-void
-set_dictionary(self, dict)
-    IO::Uncompress::Brotli self
-    SV* dict
-  PREINIT:
-    size_t size;
-    uint8_t *data;
-  CODE:
-    data = SvPV(dict, size);
-    BrotliDecoderSetCustomDictionary(self->decoder, size, data);
-
 
 MODULE = IO::Compress::Brotli		PACKAGE = IO::Compress::Brotli
 PROTOTYPES: ENABLE
@@ -261,14 +250,3 @@ DESTROY(self)
   CODE:
     BrotliEncoderDestroyInstance(self->encoder);
     Safefree(self);
-
-void
-set_dictionary(self, dict)
-    IO::Compress::Brotli self
-    SV* dict
-  PREINIT:
-    size_t size;
-    uint8_t *data;
-  CODE:
-    data = SvPV(dict, size);
-    BrotliEncoderSetCustomDictionary(self->encoder, size, data);

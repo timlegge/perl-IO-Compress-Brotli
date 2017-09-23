@@ -16,7 +16,7 @@ WriteMakefile(
 		'Time::HiRes'  => '0',
 	},
 	BUILD_REQUIRES   => {},
-	INC              => '-Ibrotli/include',
+	INC              => '-Ibrotli/c/include',
 	MYEXTLIB         => 'brotli/libbrotli$(LIB_EXT)',
 	clean            => { FILES => 'brotli/libbrotli$(LIB_EXT)' },
 	META_ADD         => {
