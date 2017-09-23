@@ -1,0 +1,38 @@
+# Bug: the default rules ignore \bMakefile\b, but we want to include
+# brotli/Makefile in our manifest
+
+#!include_default
+
+^\.gitmodules
+^\.travis.yml
+^Brotli.c
+^Brotli.o
+
+# Unused dirs in brotli library
+^brotli/bin/
+^brotli/docs/
+^brotli/python/
+^brotli/go/
+^brotli/java/
+^brotli/research/
+^brotli/csharp/
+^brotli/js/
+^brotli/scripts/
+^brotli/c/fuzz/
+^brotli/c/tools/
+
+# Unused files in brotli library
+^brotli/configure-cmake
+^brotli/premake5.lua
+^brotli/setup.py
+^brotli/.git
+^brotli/CONTRIBUTING.md
+^brotli/setup.cfg
+^brotli/.editorconfig
+^brotli/.gitignore
+^brotli/.gitmodules
+^brotli/.travis.yml
+^brotli/BUILD
+^brotli/CMakeLists.txt
+^brotli/MANIFEST.in
+^brotli/WORKSPACE
