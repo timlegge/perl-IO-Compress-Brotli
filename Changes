@@ -1,5 +1,8 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.003_002 2017-10-14T18:55+01:00
+ - Fix bad version causing test failures
+
 0.003_001 2017-09-23T22:20+03:00
  - Update included Brotli library to v1.0.1
  - [BREAKS API] remove the undocumented "set_dictionary" function from
