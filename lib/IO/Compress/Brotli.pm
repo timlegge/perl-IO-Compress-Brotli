@@ -10,7 +10,7 @@ use IO::Uncompress::Brotli;
 our @EXPORT = qw/bro/;
 our @EXPORT_OK = @EXPORT;
 
-our $VERSION = '0.003_002';
+our $VERSION = '0.004';
 
 my %BROTLI_ENCODER_MODE = ( generic => 0, text => 1, font => 2 );
 sub mode {

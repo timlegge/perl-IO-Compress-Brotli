@@ -1,5 +1,8 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.004 2017-10-28T20:40+01:00
+ - Same as 0.003_002
+
 0.003_002 2017-10-14T18:55+01:00
  - Fix bad version causing test failures
 
