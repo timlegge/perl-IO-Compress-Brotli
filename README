@@ -23,7 +23,7 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-* File::Slurp
+* File::Slurper
 
 Additionally, it requires a C compiler.
 

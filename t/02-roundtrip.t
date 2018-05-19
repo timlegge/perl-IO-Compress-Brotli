@@ -3,14 +3,14 @@ use v5.14;
 use warnings;
 
 use Test::More tests => 114;
-use File::Slurp;
+use File::Slurper qw/read_binary/;
 
 use IO::Compress::Brotli;
 use IO::Uncompress::Brotli;
 
 for my $test (<brotli/tests/testdata/*.compressed>) {
 	my ($source) = $test =~ s/\.compressed$//r;
-	$source = read_file $source;
+	$source = read_binary $source;
 
 	for my $quality (9,11) {
 		my $encoded = bro($source, $quality);

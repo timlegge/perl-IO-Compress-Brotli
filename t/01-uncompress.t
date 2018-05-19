@@ -3,15 +3,15 @@ use v5.14;
 use warnings;
 
 use Test::More tests => 84;
-use File::Slurp;
+use File::Slurper qw/read_binary/;
 
 use IO::Uncompress::Brotli;
 
 for my $test (<brotli/tests/testdata/*.compressed*>) {
 	my ($expected) = $test =~ s/\.compressed.*//r;
-	$expected = read_file $expected;
+	$expected = read_binary $expected;
 
-	my $decoded = unbro ((scalar read_file $test), 1_000_000);
+	my $decoded = unbro ((scalar read_binary $test), 1_000_000);
 	is $decoded, $expected, "$test";
 
 	open FH, '<', $test;
