@@ -8,7 +8,7 @@ use parent qw/Exporter/;
 our @EXPORT = qw/unbro/;
 our @EXPORT_OK = @EXPORT;
 
-our $VERSION = '0.004';
+our $VERSION = '0.004001';
 
 require XSLoader;
 XSLoader::load('IO::Compress::Brotli', $VERSION);
@@ -109,7 +109,7 @@ clean up of the overall project were contributed by:
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015-2017 by Marius Gavrilescu
+Copyright (C) 2015-2018 by Marius Gavrilescu
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.20.2 or,

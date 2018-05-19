@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.004001 2018-05-19T19:58+01:00
+ - Update included Brotli library to v1.0.4
+ - Use File::Slurper instead of File::Slurp
+
 0.004 2017-10-28T20:40+01:00
  - Same as 0.003_002
 
