@@ -85,6 +85,7 @@ brotli/configure
 brotli/configure.ac
 brotli/fetch-spec/shared-brotli-fetch-spec.txt
 brotli/LICENSE
+brotli/Makefile
 brotli/Makefile.am
 brotli/README
 brotli/README.md
