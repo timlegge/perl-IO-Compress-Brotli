@@ -63,10 +63,12 @@ function.
 
 =over
 
-=item B<bro>(I<$input>)
+=item B<bro>(I<$input>, I<$quality>, I<$window>)
 
 Takes a whole uncompressed buffer as input and returns the compressed
-data.
+data using the supplied quality and window parameters. If quality and
+window parameters are not supplied, default values are used (as
+described under the object-oriented interface).
 
 Exported by default.
 
