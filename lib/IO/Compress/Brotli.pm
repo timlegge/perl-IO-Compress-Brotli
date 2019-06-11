@@ -5,6 +5,8 @@ use strict;
 use warnings;
 use parent qw/Exporter/;
 
+use Carp qw/croak/;
+
 use IO::Uncompress::Brotli;
 
 our @EXPORT = qw/bro/;
@@ -16,7 +18,7 @@ my %BROTLI_ENCODER_MODE = ( generic => 0, text => 1, font => 2 );
 sub mode {
     my ($self, $mode) = @_;
 
-    die "Invalid encoder mode"
+    croak 'Invalid encoder mode'
         unless $BROTLI_ENCODER_MODE{$mode};
 
     _mode($$self, $mode)
