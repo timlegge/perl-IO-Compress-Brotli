@@ -52,10 +52,12 @@ brotli/c/enc/entropy_encode_static.h
 brotli/c/enc/fast_log.h
 brotli/c/enc/find_match_length.h
 brotli/c/enc/hash.h
+brotli/c/enc/hash_composite_inc.h
 brotli/c/enc/hash_forgetful_chain_inc.h
 brotli/c/enc/hash_longest_match64_inc.h
 brotli/c/enc/hash_longest_match_inc.h
 brotli/c/enc/hash_longest_match_quickly_inc.h
+brotli/c/enc/hash_rolling_inc.h
 brotli/c/enc/hash_to_binary_tree_inc.h
 brotli/c/enc/histogram.c
 brotli/c/enc/histogram.h
@@ -86,9 +88,6 @@ brotli/configure.ac
 brotli/fetch-spec/shared-brotli-fetch-spec.txt
 brotli/LICENSE
 brotli/Makefile
-brotli/Makefile.am
-brotli/README
-brotli/README.md
 brotli/tests/compatibility_test.sh
 brotli/tests/roundtrip_test.sh
 brotli/tests/run-compatibility-test.cmake
