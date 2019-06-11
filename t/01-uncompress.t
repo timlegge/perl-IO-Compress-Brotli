@@ -15,6 +15,7 @@ for my $test (<brotli/tests/testdata/*.compressed*>) {
 	is $decoded, $expected, "$test";
 
 	open FH, '<', $test;
+	binmode FH;
 	my $unbro = IO::Uncompress::Brotli->create;
 	my ($buf, $out);
 	until (eof FH) {
