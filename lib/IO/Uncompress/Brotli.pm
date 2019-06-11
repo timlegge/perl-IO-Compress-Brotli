@@ -8,13 +8,13 @@ use parent qw/Exporter/;
 our @EXPORT = qw/unbro/;
 our @EXPORT_OK = @EXPORT;
 
-our $VERSION = '0.004001';
+our $VERSION = '0.004_002';
 
 require XSLoader;
 XSLoader::load('IO::Compress::Brotli', $VERSION);
 
-# 0.004 has unbro with prototype $$
-# 0.004_001 renames it to unbro_given_size, and provides unbro with
+# 0.004001 has unbro with prototype $$
+# 0.004_002 renames it to unbro_given_size, and provides unbro with
 #           prototype $;$ which calls:
 #           * unbro_given_size when called with two arguments
 #           * the OO interface when called with one argument
@@ -73,7 +73,7 @@ data. It allocates a buffer of size I<$maximum_decoded_size> to store
 the decompressed data, if this is not sufficient (or there is another
 error) this function will croak.
 
-As of version 0.004_001, the I<$maximum_decoded_size> argument is
+As of version 0.004_002, the I<$maximum_decoded_size> argument is
 optional. If not provided, B<unbro> uses the streaming interface
 described in the next section to decompress the buffer in blocks of
 one megabyte. The decompressed blocks are concatenated and returned.

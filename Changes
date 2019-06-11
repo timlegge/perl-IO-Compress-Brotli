@@ -1,5 +1,12 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.004_002 2019-06-11T16:06+03:00
+ - Make unbro not require maximum buffer size (RT #129480)
+ - Add "binmode FH" to 01-uncompress.t (RT #125995)
+ - Fix link in POD
+ - Update POD for bro to include configurables (thanks, Mark Zabaro)
+ - Update included Brotli library to v1.0.7
+
 0.004001 2018-05-19T19:58+01:00
  - Update included Brotli library to v1.0.4
  - Use File::Slurper instead of File::Slurp
