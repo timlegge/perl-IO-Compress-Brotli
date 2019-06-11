@@ -83,8 +83,8 @@ uncompressed data. Dies on error.
 
 =head1 SEE ALSO
 
-Brotli Compressed Data Format Internet-Draft:
-L<https://www.ietf.org/id/draft-alakuijala-brotli-08.txt>
+RFC 7392 Brotli Compressed Data Format:
+L<https://tools.ietf.org/html/rfc7932>
 
 Brotli source code: L<https://github.com/google/brotli/>
 
@@ -106,6 +106,8 @@ clean up of the overall project were contributed by:
 =item Mattia Barbon, E<lt>mattia@barbon.orgE<gt>
 
 =back
+
+POD fix by Mark Zabaro, E<lt>markzabaro@gmail.comE<gt>.
 
 =head1 COPYRIGHT AND LICENSE
 
