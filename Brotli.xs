@@ -23,7 +23,7 @@ MODULE = IO::Compress::Brotli		PACKAGE = IO::Uncompress::Brotli
 PROTOTYPES: ENABLE
 
 SV*
-unbro(buffer, decoded_size)
+unbro_given_size(buffer, decoded_size)
     SV* buffer
     size_t decoded_size
   PREINIT:

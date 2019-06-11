@@ -13,6 +13,21 @@ our $VERSION = '0.004001';
 require XSLoader;
 XSLoader::load('IO::Compress::Brotli', $VERSION);
 
+# 0.004 has unbro with prototype $$
+# 0.004_001 renames it to unbro_given_size, and provides unbro with
+#           prototype $;$ which calls:
+#           * unbro_given_size when called with two arguments
+#           * the OO interface when called with one argument
+sub unbro ($;$) {
+	my ($buffer, $decoded_size) = @_;
+	if (defined $decoded_size) {
+		return unbro_given_size($buffer, $decoded_size)
+	} else {
+		my $bro = IO::Uncompress::Brotli->create;
+		return $bro->decompress($buffer);
+	}
+}
+
 1;
 __END__
 
@@ -57,6 +72,11 @@ Takes a whole compressed buffer as input and returns the decompressed
 data. It allocates a buffer of size I<$maximum_decoded_size> to store
 the decompressed data, if this is not sufficient (or there is another
 error) this function will croak.
+
+As of version 0.004_001, the I<$maximum_decoded_size> argument is
+optional. If not provided, B<unbro> uses the streaming interface
+described in the next section to decompress the buffer in blocks of
+one megabyte. The decompressed blocks are concatenated and returned.
 
 Exported by default.
 
