@@ -17,19 +17,19 @@ WriteMakefile(
 	},
 	BUILD_REQUIRES   => {},
 	INC              => '-Ibrotli/c/include',
-	MYEXTLIB         => 'brotli/libbrotli$(LIB_EXT)',
-	clean            => { FILES => 'brotli/libbrotli$(LIB_EXT)' },
+	MYEXTLIB         => 'brotli/libbrotlienc.so.1.1.0 brotli/libbrotlidec.so.1.1.0 brotli/libbrotlicommon.so.1.1.0',
+	clean            => { FILES => 'brotli/Makefile brotli/libbrotlienc.so* brotli/libbrotlidec.so* brotli/libbrotlicommon.so* brotli/CMakeCache.txt brotli/CMakeFiles/* brotli/CTestTestfile.cmake brotli/DartConfiguration.tcl brotli/brotli brotli/cmake_install.cmake brotli/libbrotlicommon.pc brotli/libbrotlidec.pc brotli/libbrotlienc.pc' },
 	META_ADD         => {
 		dynamic_config => 0,
 		resources      => {
-			repository   => 'https://git.ieval.ro/?p=io-compress-brotli.git',
+			repository   => 'https://github.com/timlegge/perl-IO-Compress-Brotli',
 		},
 	}
 );
 
 sub MY::postamble {
 '
-$(MYEXTLIB): brotli/Makefile
-	cd brotli && CFLAGS=-fPIC `which gmake || echo $(MAKE)` lib
+$(MYEXTLIB): brotli/CMakeLists.txt
+	cd brotli && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./installed . && make
 '
 }
