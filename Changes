@@ -1,5 +1,12 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.007 2023-10-26T20:35+03:00
+ - Release 0.006-TRIAL as production release
+ - New Maintainer TIMLEGGE
+ - Update included Brotli library to v1.1.0
+ - Installation now requires cmake version 3.  Alien::cmake3 used if there is no system cmake
+ - Unreleased 0.004_002 changes
+
 0.006 2023-10-24T22:03+03:00
  - New Maintainer TIMLEGGE
  - Update included Brotli library to v1.1.0
