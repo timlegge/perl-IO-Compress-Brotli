@@ -2,6 +2,9 @@ use 5.014000;
 use ExtUtils::MakeMaker;
 use Alien::cmake3;
 use File::Spec::Functions qw/catfile/;
+use Config;
+
+my $cmake_options = ($Config{myuname} =~ /strawberry/i) ? ' -G "MinGW Makefiles" -DCMAKE_MAKE_PROGRAM=gmake ' : '';
 
 WriteMakefile(
 	NAME             => 'IO::Compress::Brotli',
@@ -39,6 +42,6 @@ sub MY::postamble {
     my $cmake = defined $dirs[0] ? catfile($dirs[0] , Alien::cmake3->exe) : Alien::cmake3->exe;
 '
 $(MYEXTLIB): brotli/CMakeLists.txt
-	cd brotli && ' . $cmake . ' -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./installed . && make
+	cd brotli && ' . $cmake . $cmake_options . ' -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./installed . && make
 '
 }
