@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.008 2023-10-27T17:55+03:00
+ - Versions 0.005 to 0.007 incorrectly build brotli as a shared lib
+ - Build Brotli as a static library
+
 0.007 2023-10-26T20:35+03:00
  - Release 0.006-TRIAL as production release
  - New Maintainer TIMLEGGE
