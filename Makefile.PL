@@ -24,8 +24,8 @@ WriteMakefile(
 		'Alien::cmake3' => '0',
 	},
 	INC              => '-Ibrotli/c/include',
-	MYEXTLIB         => 'brotli/libbrotlienc.so.1.1.0 brotli/libbrotlidec.so.1.1.0 brotli/libbrotlicommon.so.1.1.0',
-	clean            => { FILES => 'brotli/Makefile brotli/libbrotlienc.so* brotli/libbrotlidec.so* brotli/libbrotlicommon.so* brotli/CMakeCache.txt brotli/CMakeFiles/* brotli/CTestTestfile.cmake brotli/DartConfiguration.tcl brotli/brotli brotli/cmake_install.cmake brotli/libbrotlicommon.pc brotli/libbrotlidec.pc brotli/libbrotlienc.pc' },
+	MYEXTLIB         => 'brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT)',
+	clean            => { FILES => 'brotli/Makefile brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT) brotli/CMakeCache.txt brotli/CMakeFiles/* brotli/CTestTestfile.cmake brotli/DartConfiguration.tcl brotli/brotli brotli/cmake_install.cmake brotli/libbrotlicommon.pc brotli/libbrotlidec.pc brotli/libbrotlienc.pc' },
 	META_ADD         => {
 		dynamic_config => 0,
 		resources      => {
@@ -39,6 +39,6 @@ sub MY::postamble {
     my $cmake = defined $dirs[0] ? catfile($dirs[0] , Alien::cmake3->exe) : Alien::cmake3->exe;
 '
 $(MYEXTLIB): brotli/CMakeLists.txt
-	cd brotli && ' . $cmake . ' -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./installed . && make
+	cd brotli && ' . $cmake . ' -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./installed . && make
 '
 }
