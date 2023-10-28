@@ -1,4 +1,4 @@
-#!perl
+#!/usr/bin/env perl
 
 use warnings;
 use strict;
@@ -6,7 +6,7 @@ use 5.014;
 
 use bytes ();
 
-use File::Slurper qw/read_binary/;
+use File::Slurper qw/read_binary write_binary/;
 use Getopt::Long;
 use Time::HiRes qw/ gettimeofday tv_interval /;
 
@@ -83,10 +83,10 @@ for ( 1..$REPEAT ) {
             print $ofh $encoded;
         }
         else {
-            my $decoded = read_binary( $ifh );
+            my $decoded = read_binary( $INPUT );
             my $encoded = bro( $decoded, $QUALITY, $WINDOW );
             $total_size += bytes::length( $decoded );
-            write_file( $ofh, $encoded );
+            write_binary( $OUTPUT, $encoded );
         }
     }
 }
