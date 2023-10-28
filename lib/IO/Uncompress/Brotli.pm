@@ -8,7 +8,7 @@ use parent qw/Exporter/;
 our @EXPORT = qw/unbro/;
 our @EXPORT_OK = @EXPORT;
 
-our $VERSION = '0.010';
+our $VERSION = '0.011';
 
 require XSLoader;
 XSLoader::load('IO::Compress::Brotli', $VERSION);

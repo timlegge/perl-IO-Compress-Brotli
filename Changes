@@ -1,7 +1,11 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.011 2023-10-28T20:55+03:00
+ - More Strawberry Perl/build changes
+
 0.010 2023-10-28T10:50+03:00
  - More Strawberry Perl changes
+ - Fix bro-perl issue from move to File::Slurper
 
 0.009 2023-10-27T22:35+03:00
  - Fix bro-perl issue from move to File::Slurper
