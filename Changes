@@ -1,5 +1,8 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.014 2023-10-29T19:26+03:00
+ - Test release to fix silly bug in 0.013 fic for Strawberry
+
 0.013 2023-10-29T13:05+03:00
  - Test release to see if nmake issue on Strawberry can be resolved
 
