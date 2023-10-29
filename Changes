@@ -1,5 +1,10 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.012 2023-10-29T09:25+03:00
+ - Release 0.011-TRIAL as production
+ - It included more Strawberry Perl/build changes that allow it to build with gcc/MinG
+ - Happy to fix remaining issues with Visual Studio versions but need assistance
+
 0.011 2023-10-28T20:55+03:00
  - More Strawberry Perl/build changes
 
