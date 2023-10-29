@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use v5.14;
+use v5.08;
 use warnings;
 
 use Test::More tests => 126;
@@ -9,7 +9,8 @@ use IO::Compress::Brotli;
 use IO::Uncompress::Brotli;
 
 for my $test (<brotli/tests/testdata/*.compressed>) {
-	my ($source) = $test =~ s/\.compressed$//r;
+	my $source = $test;
+	$source =~ s/\.compressed.*//;
 	$source = read_binary $source;
 
 	for my $quality (9,11) {
