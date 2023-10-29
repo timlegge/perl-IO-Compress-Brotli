@@ -7,6 +7,7 @@ use Config;
 my $cmake_options;
 if ($Config{myuname} =~ /strawberry/i) {
     $cmake_options = ($Config{cc} =~ /gcc/i) ? ' -G "MinGW Makefiles" ' : '';
+    $cmake_options = ($Config{cc} =~ /cl/i) ? ' -G "NMake Makefiles" ' : '';
 }
 
 WriteMakefile(
