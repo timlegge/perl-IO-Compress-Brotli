@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.015 2023-10-30T17:20+03:00
+ - Maybe I should give up on Windows...
+ - uname is sometimes blank so also check for osname
+
 0.014 2023-10-29T19:26+03:00
  - Test release to fix silly bug in 0.013 fic for Strawberry
 
