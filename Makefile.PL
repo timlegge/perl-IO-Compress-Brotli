@@ -5,7 +5,8 @@ use File::Spec::Functions qw/catfile/;
 use Config;
 
 my $cmake_options;
-if ($Config{myuname} =~ /strawberry/i) {
+
+if ($Config{myuname} =~ /strawberry/i || $Config{osname} =~ /MSWin/i ) {
     if ($Config{cc} =~ /gcc/i) {
         $cmake_options = ' -G "MinGW Makefiles" ';
     } elsif ($Config{cc} =~ /cl/i) {
