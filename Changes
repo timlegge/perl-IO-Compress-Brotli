@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.017 2023-10-31T16:50+03:00
+ - Release 0.016-TRIAL as producion
+ - This release finally seems to have fixed the Windows build issues
+
 0.016 2023-10-30T22:00+03:00
  - Support Visual Studio and nmake
  - library file names are different
