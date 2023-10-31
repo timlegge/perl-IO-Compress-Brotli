@@ -1,4 +1,4 @@
-use 5.014000;
+use 5.008000;
 use ExtUtils::MakeMaker;
 use Alien::cmake3;
 use File::Spec::Functions qw/catfile/;
@@ -23,7 +23,7 @@ WriteMakefile(
 	VERSION_FROM     => 'lib/IO/Compress/Brotli.pm',
 	ABSTRACT         => 'Read/write Brotli buffers/streams',
 	AUTHOR           => 'Marius Gavrilescu <marius@ieval.ro>',
-	MIN_PERL_VERSION => '5.14.0',
+	MIN_PERL_VERSION => '5.08.0',
 	LICENSE          => 'perl',
 	SIGN             => 1,
 	EXE_FILES        => [ 'bin/bro-perl' ],

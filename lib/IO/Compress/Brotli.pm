@@ -1,6 +1,6 @@
 package IO::Compress::Brotli;
 
-use 5.014000;
+use 5.008000;
 use strict;
 use warnings;
 use parent qw/Exporter/;
