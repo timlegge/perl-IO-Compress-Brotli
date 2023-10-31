@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.016 2023-10-30T22:00+03:00
+ - Support Visual Studio and nmake
+ - library file names are different
+
 0.015 2023-10-30T17:20+03:00
  - Maybe I should give up on Windows...
  - uname is sometimes blank so also check for osname
