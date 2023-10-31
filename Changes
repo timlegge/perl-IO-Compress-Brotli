@@ -1,5 +1,9 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.018 2023-10-31T20:50+03:00
+ - Test release to support 5.8+ perl
+ - Really just removes the tests destructive regex as per RT:145844
+
 0.017 2023-10-31T16:50+03:00
  - Release 0.016-TRIAL as producion
  - This release finally seems to have fixed the Windows build issues
