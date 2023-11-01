@@ -36,7 +36,7 @@ unbro_given_size(buffer, decoded_size)
         croak("Error in BrotliDecoderDecompress");
     }
     RETVAL = newSV(0);
-    sv_usepvn(RETVAL, decoded_buffer, decoded_size);
+    sv_usepvn(RETVAL, (char *) decoded_buffer, decoded_size);
   OUTPUT:
     RETVAL
 
@@ -128,7 +128,7 @@ bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
     }
     encoded_buffer[encoded_size]=0;
     RETVAL = newSV(0);
-    sv_usepvn_flags(RETVAL, encoded_buffer, encoded_size, SV_SMAGIC | SV_HAS_TRAILING_NUL);
+    sv_usepvn_flags(RETVAL, (char *) encoded_buffer, encoded_size, SV_SMAGIC | SV_HAS_TRAILING_NUL);
   OUTPUT:
     RETVAL
 
