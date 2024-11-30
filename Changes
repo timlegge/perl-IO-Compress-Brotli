@@ -1,5 +1,12 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.019 2024-11-30T14:30+04:00
+ - Update ppport.h to 3.71
+ - Update actions and add ubuntu matrix
+ - Update SvPV to SvPVbyte for buffers
+ - Fixes #6 - IO::Compress::Brotli makefile error with static build
+ - Explicitly convert unsigned char * to char *
+
 0.018 2023-10-31T20:50+03:00
  - Test release to support 5.8+ perl
  - Really just removes the tests destructive regex as per RT:145844
