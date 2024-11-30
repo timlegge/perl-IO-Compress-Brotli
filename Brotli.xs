@@ -30,7 +30,7 @@ unbro_given_size(buffer, decoded_size)
     STRLEN encoded_size;
     uint8_t *encoded_buffer, *decoded_buffer;
   CODE:
-    encoded_buffer = (uint8_t*) SvPV(buffer, encoded_size);
+    encoded_buffer = (uint8_t*) SvPVbyte(buffer, encoded_size);
     Newx(decoded_buffer, decoded_size, uint8_t);
     if(!BrotliDecoderDecompress(encoded_size, encoded_buffer, &decoded_size, decoded_buffer)){
         croak("Error in BrotliDecoderDecompress");
@@ -65,7 +65,7 @@ decompress(self, in)
     size_t available_in, available_out;
     BrotliDecoderResult result;
   CODE:
-    next_in = (uint8_t*) SvPV(in, available_in);
+    next_in = (uint8_t*) SvPVbyte(in, available_in);
     Newx(buffer, BUFFER_SIZE, uint8_t);
     RETVAL = newSVpv("", 0);
     result = BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT;
@@ -109,7 +109,7 @@ bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
     if( lgwin < BROTLI_MIN_WINDOW_BITS || lgwin > BROTLI_MAX_WINDOW_BITS ) {
         croak("Invalid window value");
     }
-    decoded_buffer = (uint8_t*) SvPV(buffer, decoded_size);
+    decoded_buffer = (uint8_t*) SvPVbyte(buffer, decoded_size);
     encoded_size = BrotliEncoderMaxCompressedSize(decoded_size);
     if(!encoded_size){
         croak("Compressed size overflow");
@@ -214,7 +214,7 @@ _compress(self, in = &PL_sv_undef)
     if(in == &PL_sv_undef)
         next_in = (uint8_t*) buffer, available_in = 0;
     else
-        next_in = (uint8_t*) SvPV(in, available_in);
+        next_in = (uint8_t*) SvPVbyte(in, available_in);
     RETVAL = newSVpv("", 0);
     while(1) {
         next_out = buffer;
