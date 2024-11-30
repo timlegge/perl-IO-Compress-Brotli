@@ -12,9 +12,10 @@ if ($Config{myuname} =~ /strawberry/i || $Config{osname} =~ /MSWin/i ) {
         $cmake_options = ' -G "MinGW Makefiles" ';
     } elsif ($Config{cc} =~ /cl/i) {
         $cmake_options = ' -G "NMake Makefiles" ';
-        $myextlib = 'brotli/brotlienc$(LIB_EXT) brotli/brotlidec$(LIB_EXT) brotli/brotlicommon$(LIB_EXT)';
+        $myextlib = 'brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT)';
     } else {
         $cmake_options = '';
+        $myextlib = 'brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT)';
     }
 }
 
@@ -40,6 +41,7 @@ WriteMakefile(
 	},
 	INC              => '-Ibrotli/c/include',
 	MYEXTLIB         => $myextlib,
+	EXTRALIBS        => ' brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT) ',
 	clean            => { FILES => "brotli/Makefile $myextlib brotli/CMakeCache.txt brotli/CMakeFiles/* brotli/CTestTestfile.cmake brotli/DartConfiguration.tcl brotli/brotli* brotli/cmake_install.cmake brotli/libbrotlicommon.pc brotli/libbrotlidec.pc brotli/libbrotlienc.pc" },
 	META_ADD         => {
 		dynamic_config => 0,
