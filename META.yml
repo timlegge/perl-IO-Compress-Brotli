@@ -7,7 +7,7 @@ build_requires:
 configure_requires:
   Alien::cmake3: '0'
 dynamic_config: 0
-generated_by: 'ExtUtils::MakeMaker version 7.70, CPAN::Meta::Converter version 2.150010'
+generated_by: 'ExtUtils::MakeMaker version 7.76, CPAN::Meta::Converter version 2.150010'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -24,5 +24,5 @@ requires:
   perl: '5.008000'
 resources:
   repository: https://github.com/timlegge/perl-IO-Compress-Brotli
-version: '0.018'
-x_serialization_backend: 'CPAN::Meta::YAML version 0.018'
+version: '0.020'
+x_serialization_backend: 'CPAN::Meta::YAML version 0.020'

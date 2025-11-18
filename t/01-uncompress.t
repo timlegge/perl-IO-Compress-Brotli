@@ -2,7 +2,7 @@
 use v5.08;
 use warnings;
 
-use Test::More tests => 132;
+use Test::More tests => 135;
 use File::Slurper qw/read_binary/;
 
 use IO::Uncompress::Brotli;

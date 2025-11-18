@@ -41,7 +41,6 @@ WriteMakefile(
 	},
 	INC              => '-Ibrotli/c/include',
 	MYEXTLIB         => $myextlib,
-	EXTRALIBS        => ' brotli/libbrotlienc$(LIB_EXT) brotli/libbrotlidec$(LIB_EXT) brotli/libbrotlicommon$(LIB_EXT) ',
 	clean            => { FILES => "brotli/Makefile $myextlib brotli/CMakeCache.txt brotli/CMakeFiles/* brotli/CTestTestfile.cmake brotli/DartConfiguration.tcl brotli/brotli* brotli/cmake_install.cmake brotli/libbrotlicommon.pc brotli/libbrotlidec.pc brotli/libbrotlienc.pc" },
 	META_ADD         => {
 		dynamic_config => 0,
