@@ -1,5 +1,8 @@
 Revision history for Perl extension IO::Compress::Brotli.
 
+0.022 2026-05-29T02:40-04:00
+ - Fix static build issue
+
 0.021 2026-05-29T02:46-04:00
  - Revert Update SvPV to SvPVbyte for buffers from 0.019
  - Fix potential memory leaks in error path

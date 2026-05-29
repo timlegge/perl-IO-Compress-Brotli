@@ -45,6 +45,6 @@
          "url" : "https://github.com/timlegge/perl-IO-Compress-Brotli"
       }
    },
-   "version" : "0.021",
+   "version" : "0.022",
    "x_serialization_backend" : "JSON::PP version 4.16"
 }
