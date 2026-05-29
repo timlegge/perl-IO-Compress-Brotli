@@ -33,6 +33,7 @@ unbro_given_size(buffer, decoded_size)
     encoded_buffer = (uint8_t*) SvPV(buffer, encoded_size);
     Newx(decoded_buffer, decoded_size, uint8_t);
     if(!BrotliDecoderDecompress(encoded_size, encoded_buffer, &decoded_size, decoded_buffer)){
+        Safefree(decoded_buffer);
         croak("Error in BrotliDecoderDecompress");
     }
     RETVAL = newSV(0);
@@ -123,7 +124,7 @@ bro(buffer, quality=BROTLI_DEFAULT_QUALITY, lgwin=BROTLI_DEFAULT_WINDOW)
                                     &encoded_size,
                                     encoded_buffer );
     if(!result){
-        Safefree(buffer);
+        Safefree(encoded_buffer);
         croak("Error in BrotliEncoderCompress");
     }
     encoded_buffer[encoded_size]=0;
